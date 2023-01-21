@@ -2,20 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta name="generator" content="ex2html.rb" />
-  <meta http-equiv="Content-Type" content=
-  "text/html; charset=us-ascii" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="css/popup.css" />
-
   <title>RMagick example: crop.rb</title>
 </head>
-
 <body>
 <h1>crop.rb</h1>
 <div class="bodybox">
 <div class="bodyfloat">
 <pre>
-#!/home/software/ruby-1.8.7/bin/ruby -w
-require 'RMagick'
+require 'rmagick'
 
 # Demonstrate the Image#crop method
 
@@ -30,14 +26,14 @@ rect = Magick::Draw.new
 rect.stroke('transparent')
 rect.fill('white')
 rect.fill_opacity(0.25)
-rect.rectangle(23, 81, 107+23, 139+81)
+rect.rectangle(23, 81, 107 + 23, 139 + 81)
 rect.draw(img)
 
 img.write('crop_before.png')
 
 # Create a image to use as a background for
 # the "after" image.
-bg = Magick::Image.new(img.columns, img.rows) {self.background_color="none"}
+bg = Magick::Image.new(img.columns, img.rows) { |info| info.background_color = 'none' }
 
 # Composite the the "after" (chopped) image on the background
 bg = bg.composite(chopped, 23, 81, Magick::OverCompositeOp)

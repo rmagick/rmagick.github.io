@@ -2,32 +2,28 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta name="generator" content="ex2html.rb" />
-  <meta http-equiv="Content-Type" content=
-  "text/html; charset=us-ascii" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="css/popup.css" />
-
   <title>RMagick example: average.rb</title>
 </head>
-
 <body>
 <h1>average.rb</h1>
 <div class="bodybox">
 <div class="bodyfloat">
 <pre>
-#!/home/software/ruby-1.8.7/bin/ruby -w
 # Demonstrate ImageList#average method
-require 'RMagick'
+require 'rmagick'
 
-images = Magick::ImageList.new("images/Button_A.gif", "images/Button_B.gif", "images/Button_C.gif")
+images = Magick::ImageList.new('images/Button_A.gif', 'images/Button_B.gif', 'images/Button_C.gif')
 
 group = images.append false
 group.compression = Magick::LZWCompression
-group.write "average_before.gif"
+group.write 'average_before.gif'
 
 average_image = images.average
 
 average_image.compression = Magick::LZWCompression
-average_image.write "average_after.gif"
+average_image.write 'average_after.gif'
 exit
 </pre>
 </div>

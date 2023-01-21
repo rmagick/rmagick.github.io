@@ -2,27 +2,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta name="generator" content="ex2html.rb" />
-  <meta http-equiv="Content-Type" content=
-  "text/html; charset=us-ascii" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="css/popup.css" />
-
   <title>RMagick example: matte_fill_to_border.rb</title>
 </head>
-
 <body>
 <h1>matte_fill_to_border.rb</h1>
 <div class="bodybox">
 <div class="bodyfloat">
 <pre>
-#!/home/software/ruby-1.8.7/bin/ruby -w
+require 'rmagick'
 
-require 'RMagick'
-
-img = Magick::Image.new(200,200)
+img = Magick::Image.new(200, 200)
 img.compression = Magick::LZWCompression
 
-bg = Magick::Image.read('plasma:fractal') { self.size = '200x200' }
-bg[0].matte = false
+bg = Magick::Image.read('plasma:fractal') { |options| options.size = '200x200' }
+bg[0].alpha(Magick::DeactivateAlphaChannel)
 
 gc = Magick::Draw.new
 gc.stroke_width(2)
@@ -31,8 +26,8 @@ gc.fill('white')
 gc.roundrectangle(0, 0, 199, 199, 8, 8)
 
 gc.fill('black')
-gc.circle(100,  45, 100,  25)
-gc.circle( 45, 100,  25, 100)
+gc.circle(100, 45, 100, 25)
+gc.circle(45, 100,  25, 100)
 gc.circle(100, 155, 100, 175)
 gc.circle(155, 100, 175, 100)
 
@@ -53,7 +48,6 @@ img = bg[0].composite(img, Magick::CenterGravity, Magick::OverCompositeOp)
 
 img.write('matte_fill_to_border_after.gif')
 exit
-
 </pre>
 </div>
 </div>

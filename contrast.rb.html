@@ -2,20 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta name="generator" content="ex2html.rb" />
-  <meta http-equiv="Content-Type" content=
-  "text/html; charset=us-ascii" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="css/popup.css" />
-
   <title>RMagick example: contrast.rb</title>
 </head>
-
 <body>
 <h1>contrast.rb</h1>
 <div class="bodybox">
 <div class="bodyfloat">
 <pre>
-#!/home/software/ruby-1.8.7/bin/ruby -w
-require 'RMagick'
+require 'rmagick'
 
 # Demonstrate the Image#contrast method
 
@@ -30,25 +26,25 @@ legend.gravity = Magick::SouthEastGravity
 
 # Add 3 images, each one having slightly less contrast
 f = 1
-3.times {
-    img &lt;&lt; img.contrast
+3.times do
+  img &lt;&lt; img.contrast
 
-    # Annotate the previous image
-    legend.annotate(img[f-1], 0,0,7,10, f.to_s)
-    f += 1
-    }
+  # Annotate the previous image
+  legend.annotate(img[f - 1], 0, 0, 7, 10, f.to_s)
+  f += 1
+end
 
 # Annotate the last image
-legend.annotate(img, 0,0,7,10, f.to_s)
+legend.annotate(img, 0, 0, 7, 10, f.to_s)
 
 # Montage into a single image
-imgs = img.montage {
-    self.geometry = Magick::Geometry.new(img.columns, img.rows)
-    self.tile = "2x2"
-    }
+imgs = img.montage do |options|
+  options.geometry = Magick::Geometry.new(img.columns, img.rows)
+  options.tile = '2x2'
+end
 
 imgs.write('contrast.jpg')
-#imgs.display
+# imgs.display
 exit
 </pre>
 </div>

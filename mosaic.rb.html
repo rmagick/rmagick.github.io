@@ -2,20 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta name="generator" content="ex2html.rb" />
-  <meta http-equiv="Content-Type" content=
-  "text/html; charset=us-ascii" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="css/popup.css" />
-
   <title>RMagick example: mosaic.rb</title>
 </head>
-
 <body>
 <h1>mosaic.rb</h1>
 <div class="bodybox">
 <div class="bodyfloat">
 <pre>
-#!/home/software/ruby-1.8.7/bin/ruby -w
-require 'RMagick'
+require 'rmagick'
 
 # Demonstrate the mosaic method
 
@@ -23,30 +19,32 @@ a = Magick::ImageList.new
 
 letter = 'A'
 26.times do
-    # 'M' is not the same size as the other letters.
-    if letter != 'M'
-        a.read("images/Button_"+letter+".gif")
-    end
-    letter.succ!
+  # 'M' is not the same size as the other letters.
+  a.read('images/Button_' + letter + '.gif') if letter != 'M'
+  letter.succ!
 end
 
 # Make a copy of "a" with all the images quarter-sized
 b = Magick::ImageList.new
-page = Magick::Rectangle.new(0,0,0,0)
+page = Magick::Rectangle.new(0, 0, 0, 0)
 a.scene = 0
 5.times do |i|
-    5.times do |j|
-        b &lt;&lt; a.scale(0.25)
-        page.x = j * b.columns
-        page.y = i * b.rows
-        b.page = page
-        (a.scene += 1) rescue a.scene = 0
+  5.times do |j|
+    b &lt;&lt; a.scale(0.25)
+    page.x = j * b.columns
+    page.y = i * b.rows
+    b.page = page
+    begin
+      (a.scene += 1)
+    rescue StandardError
+      a.scene = 0
     end
+  end
 end
 
 # Make a 5x5 mosaic
 mosaic = b.mosaic
-mosaic.write("mosaic.gif")
+mosaic.write('mosaic.gif')
 # mosaic.display
 exit
 </pre>

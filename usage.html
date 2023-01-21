@@ -6,7 +6,7 @@
   <meta name="generator" content=
   "HTML Tidy for Linux/x86 (vers 7 December 2008), see www.w3.org" />
 
-  <title>RMagick 2.12.0: How to use RMagick</title>
+  <title>RMagick 5.1.0: How to use RMagick</title>
   <meta http-equiv="Content-Type" content=
   "text/html; charset=us-ascii" />
   <meta name="GENERATOR" content="Quanta Plus" />
@@ -90,7 +90,7 @@
 </head>
 
 <body>
-  <h6 id="header">RMagick 2.12.0 User's Guide and Reference</h6>
+  <h6 id="header">RMagick 5.1.0 User's Guide and Reference</h6>
 
   <div class="nav">
     &laquo;&nbsp;<a href="index.html">Prev</a> | <a href=
@@ -130,7 +130,7 @@
   displays<span class="sup"><a href="#display">1</a></span> it on
   your monitor</p>
   <pre class="example">
-1. require 'RMagick'
+1. require "rmagick"
 2. include Magick
 3.
 4. cat = ImageList.new("Cheetah.jpg")
@@ -194,7 +194,7 @@
 
   <p>Going back to the example, let's make one modification.</p>
   <pre class="example">
-1. require 'RMagick'
+1. require "rmagick"
 2. include Magick
 3.
 4. cat = ImageList.new("Cheetah.jpg")
@@ -219,7 +219,7 @@
   <p>Here's how to write the small cheetah to a file in GIF
   format.</p>
   <pre class="example">
-1. require 'RMagick'
+1. require "rmagick"
 2. include Magick
 3.
 4. cat = ImageList.new("Cheetah.jpg")
@@ -293,10 +293,10 @@
   the background color of a new image to red with the
   <code>background_color=</code> method, as shown here:</p>
   <pre class="example">
-require 'RMagick'
+require "rmagick"
 include Magick
 # Create a 100x100 red image.
-f = Image.new(100,100) { self.background_color = "red" }
+f = Image.new(100,100) { |options| options.background_color = "red" }
 f.display
 exit
 </pre>
@@ -334,8 +334,8 @@ exit
   in those files (remember, each input file can contain multiple
   images) into one animated GIF file.</p>
   <pre class="example">
-#! /usr/local/bin/ruby -w
-require 'RMagick'
+#!/usr/bin/env ruby -w
+require "rmagick"
 anim = ImageList.new("start.gif", "middle.gif", "finish.gif")
 anim.write("animated.gif")
 exit
@@ -1423,7 +1423,7 @@ exit
   created the circle in the center of the above image.</p>
   <pre class="example">
  1. !# /usr/local/bin/ruby -w
- 2. require 'RMagick'
+ 2. require "rmagick"
  3.
  4. canvas = Magick::ImageList.new
  5. canvas.new_image(250, 250, Magick::HatchFill.new('white', 'gray90'))
@@ -1494,7 +1494,7 @@ exit
   </div>
   <pre class="example">
  1.   #! /usr/local/bin/ruby -w
- 2.   require 'RMagick'
+ 2.   require "rmagick"
  3.
  4.   # Demonstrate the annotate method
  5.
@@ -1509,16 +1509,16 @@ exit
 14.   text.pointsize = 52
 15.   text.gravity = Magick::CenterGravity
 16.
-17.   text.annotate(canvas, 0,0,2,2, Text) {
-18.      self.fill = 'gray83'
+17.   text.annotate(canvas, 0,0,2,2, Text) { |options|
+18.      options.fill = 'gray83'
 19.   }
 20.
-21.   text.annotate(canvas, 0,0,-1.5,-1.5, Text) {
-22.      self.fill = 'gray40'
+21.   text.annotate(canvas, 0,0,-1.5,-1.5, Text) { |options|
+22.      options.fill = 'gray40'
 23.   }
 24.
-25.   text.annotate(canvas, 0,0,0,0, Text) {
-26.      self.fill = 'darkred'
+25.   text.annotate(canvas, 0,0,0,0, Text) { |options|
+26.      options.fill = 'darkred'
 27.   }
 28.
 29.   canvas.write('rubyname.gif')
@@ -1553,7 +1553,7 @@ exit
 
   <p>The first call to <code>annotate</code>, on lines 17-19, draws
   the text 2 pixels to the right and down from the center. The
-  <code>self.fill = 'gray83'</code> statement sets the text color
+  <code>options.fill = 'gray83'</code> statement sets the text color
   to light gray. The second call to <code>annotate</code>, on lines
   21-22, draws dark gray text 1.5 pixels to the left and up from
   the center. The last call, on lines 25-27, draws the text a third

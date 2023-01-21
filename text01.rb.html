@@ -2,13 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta name="generator" content="ex2html.rb" />
-  <meta http-equiv="Content-Type" content=
-  "text/html; charset=us-ascii" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="css/popup.css" />
-
   <title>RMagick example: text01.rb</title>
 </head>
-
 <body>
 <h1>text01.rb</h1>
 <div class="bodybox">
@@ -18,19 +15,18 @@ require 'rvg/rvg'
 
 Magick::RVG.dpi = 90
 
-rvg = Magick::RVG.new(10.cm, 3.cm).viewbox(0,0,1000,300) do |canvas|
-    canvas.background_fill = 'white'
-    canvas.desc = "Example text01 - 'Hello, out there' in blue"
-    canvas.text(250, 150, "Hello, out there").
-                styles(:font_family=&gt;'Verdana', :font_size=&gt;55, :fill=&gt;'blue', :font_weight=&gt;'normal', :font_style=&gt;'normal')
-    canvas.circle(5, 250, 150).styles(:fill=&gt;'red')
+rvg = Magick::RVG.new(10.cm, 3.cm).viewbox(0, 0, 1000, 300) do |canvas|
+  canvas.background_fill = 'white'
+  canvas.desc = "Example text01 - 'Hello, out there' in blue"
+  canvas.text(250, 150, 'Hello, out there')
+        .styles(font_family: 'Verdana', font_size: 55, fill: 'blue', font_weight: 'normal', font_style: 'normal')
+  canvas.circle(5, 250, 150).styles(fill: 'red')
 
-    # Show outline of canvas using 'rect' element
-    canvas.rect(997, 297).styles(:fill=&gt;'none', :stroke=&gt;'blue')
+  # Show outline of canvas using 'rect' element
+  canvas.rect(997, 297).styles(fill: 'none', stroke: 'blue')
 end
 
 rvg.draw.write('text01.gif')
-
 </pre>
 </div>
 </div>

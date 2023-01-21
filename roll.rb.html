@@ -2,24 +2,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta name="generator" content="ex2html.rb" />
-  <meta http-equiv="Content-Type" content=
-  "text/html; charset=us-ascii" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="css/popup.css" />
-
   <title>RMagick example: roll.rb</title>
 </head>
-
 <body>
 <h1>roll.rb</h1>
 <div class="bodybox">
 <div class="bodyfloat">
 <pre>
-#!/home/software/ruby-1.8.7/bin/ruby -w
-require 'RMagick'
+require 'rmagick'
 
 img = Magick::Image.read('images/Flower_Hat.jpg').first
 
-img = img.roll(img.columns/4, img.rows/4)
+img = img.roll(img.columns / 4, img.rows / 4)
 
 img.write('roll.jpg')
 exit

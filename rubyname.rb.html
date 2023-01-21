@@ -2,20 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta name="generator" content="ex2html.rb" />
-  <meta http-equiv="Content-Type" content=
-  "text/html; charset=us-ascii" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="css/popup.css" />
-
   <title>RMagick example: rubyname.rb</title>
 </head>
-
 <body>
 <h1>rubyname.rb</h1>
 <div class="bodybox">
 <div class="bodyfloat">
 <pre>
-#!/home/software/ruby-1.8.7/bin/ruby -w
-require 'RMagick'
+require 'rmagick'
 
 # Demonstrate the annotate method
 
@@ -29,19 +25,19 @@ text = Magick::Draw.new
 text.pointsize = 52
 text.gravity = Magick::CenterGravity
 
-text.annotate(canvas, 0,0,2,2, Text) {
-    self.fill = 'gray83'
-}
+text.annotate(canvas, 0, 0, 2, 2, Text) do |options|
+  options.fill = 'gray83'
+end
 
-text.annotate(canvas, 0,0,-1.5,-1.5, Text) {
-    self.fill = 'gray40'
-}
+text.annotate(canvas, 0, 0, -1.5, -1.5, Text) do |options|
+  options.fill = 'gray40'
+end
 
-text.annotate(canvas, 0,0,0,0, Text) {
-    self.fill = 'darkred'
-}
+text.annotate(canvas, 0, 0, 0, 0, Text) do |options|
+  options.fill = 'darkred'
+end
 
-#canvas.display
+# canvas.display
 canvas.write('rubyname.gif')
 exit
 </pre>

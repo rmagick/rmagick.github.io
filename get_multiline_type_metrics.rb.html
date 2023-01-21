@@ -2,20 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta name="generator" content="ex2html.rb" />
-  <meta http-equiv="Content-Type" content=
-  "text/html; charset=us-ascii" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="css/popup.css" />
-
   <title>RMagick example: get_multiline_type_metrics.rb</title>
 </head>
-
 <body>
 <h1>get_multiline_type_metrics.rb</h1>
 <div class="bodybox">
 <div class="bodyfloat">
 <pre>
-#!/home/software/ruby-1.8.7/bin/ruby -w
-require 'RMagick'
+require 'rmagick'
 
 TEXT = 'get\nmultiline\ntype\nmetrics'
 
@@ -23,11 +19,11 @@ background = Magick::Image.new(200, 200)
 gc = Magick::Draw.new
 
 # Draw the text centered on the background
-gc.annotate(background, 0, 0, 0, 0, TEXT) do
-    gc.font_family = 'Verdana'
-    gc.pointsize = 36
-    gc.gravity = Magick::CenterGravity
-    gc.stroke = 'none'
+gc.annotate(background, 0, 0, 0, 0, TEXT) do |options|
+  options.font_family = 'Verdana'
+  options.pointsize = 36
+  options.gravity = Magick::CenterGravity
+  options.stroke = 'none'
 end
 
 # Get the metrics
@@ -44,18 +40,17 @@ gc.stroke_width(5)
 gc.stroke_linejoin('round')
 gc.fill('cyan')
 gc.fill_opacity(0.10)
-gc.rectangle(x, y, x+metrics.width, y+metrics.height)
+gc.rectangle(x, y, x + metrics.width, y + metrics.height)
 
 gc.stroke('white')
 gc.stroke_width(1)
 gc.fill('none')
-gc.rectangle(x, y, x+metrics.width, y+metrics.height)
+gc.rectangle(x, y, x + metrics.width, y + metrics.height)
 gc.draw(background)
 
-background.border!(1,1, 'blue')
+background.border!(1, 1, 'blue')
 
 background.write('get_multiline_type_metrics.gif')
-
 </pre>
 </div>
 </div>

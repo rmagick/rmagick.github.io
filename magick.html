@@ -6,7 +6,7 @@
   <meta name="generator" content=
   "HTML Tidy for Linux/x86 (vers 6 November 2007), see www.w3.org" />
 
-  <title>RMagick 2.12.0: module Magick</title>
+  <title>RMagick 5.1.0: module Magick</title>
   <meta http-equiv="Content-Type" content=
   "text/html; charset=us-ascii" />
   <meta name="GENERATOR" content="Quanta Plus" />
@@ -24,7 +24,7 @@
 </head>
 
 <body>
-  <h6 id="header">RMagick 2.12.0 User's Guide and Reference</h6>
+  <h6 id="header">RMagick 5.1.0 User's Guide and Reference</h6>
 
   <div class="nav">
     &laquo;&nbsp;<a href="comtasks.html">Prev</a> | <a href=
@@ -51,8 +51,6 @@
       <li><a href="#set_log_event_mask">set_log_event_mask</a></li>
 
       <li><a href="#set_log_format">set_log_format</a></li>
-
-      <li><a href="#trace_proc">trace_proc</a></li>
     </ul>
   </div>
 
@@ -352,9 +350,9 @@ p Magick.formats &raquo;
       <dt>resource_type</dt>
 
       <dd>One of the symbols <code>:area</code>,
-      <code>:disk</code>, <code>:file</code>, <code>:map</code>, or
-      <code>:memory</code>. You may use a string instead of a
-      symbol.</dd>
+      <code>:disk</code>, <code>:file</code>, <code>:map</code>,
+      <code>:memory</code>, or <code>:time</code>. You may use a
+      string instead of a symbol.</dd>
 
       <dt>limit</dt>
 
@@ -367,7 +365,8 @@ p Magick.formats &raquo;
       the <span class="arg">resource_type</span> is
       <code>:area</code> the limit is the maximum width * height of
       an image in pixels that can reside in pixel cache memory. If
-      this argument is omitted the limit is not changed.</dd>
+      <code>:time</code>, the limit is measured in seconds. If this
+      argument is omitted the limit is not changed.</dd>
     </dl>
 
     <h4>Returns</h4>
@@ -378,6 +377,10 @@ p Magick.formats &raquo;
     <h4>Notes</h4>
 
     <p>This method supercedes <code>set_cache_threshold</code>.</p>
+
+    <p>Setting the <code>:time</code> limit resets the elapsed time
+    to zero in the pixel cache. Call it before any operation that
+    you need to set a time limit on.</p>
   </div>
 
   <div class="sig">
@@ -495,63 +498,6 @@ convert -list log
 
       <dd>carriage return</dd>
     </dl>
-  </div>
-
-  <div class="sig">
-    <h3 id="trace_proc">trace_proc</h3>
-
-    <p>Magick.trace_proc = <span class="arg">proc</span></p>
-  </div>
-
-  <div class="desc">
-    <h4>Description</h4>
-
-    <p>If the Magick module attribute <code>trace_proc</code> is
-    set to a Proc object, RMagick calls the proc whenever an image
-    is created or destroyed. You can use this proc to keep track of
-    which images your program has created and which have been
-    destroyed.</p>
-
-    <h4>Arguments</h4>
-
-    <p>The proc should accept these four arguments:</p>
-
-    <dl>
-      <dt>which</dt>
-
-      <dd>A symbol that indicates which operation the proc is being
-      called for. If the proc is called for an image creation, the
-      value is :c. If called for an image destruction, the value is
-      :d.</dd>
-
-      <dt>description</dt>
-
-      <dd>A string describing the image. This is the same string
-      that would be returned by calling the image's inspect
-      method.</dd>
-
-      <dt>id</dt>
-
-      <dd>A unique identifier for the image. This identifier is not
-      the same as the object's object_id. No two images will have
-      the same id at the same time. However, the id of an image
-      that has been destroyed may be reused for a subsequent
-      image.</dd>
-
-      <dt>method</dt>
-
-      <dd>The name of the method responsible for creating or
-      destroying the image.</dd>
-    </dl>
-
-    <h4>Notes</h4>
-
-    <p>If called while Ruby is cleaning up after the program has
-    finished, any methods the proc calls may not be executed.</p>
-
-    <p>Use <a href="info.html#user_option">the "user" option</a> to
-    add an additional identifying string to the image's
-    description.</p>
   </div>
 
   <p class="spacer">&nbsp;</p>

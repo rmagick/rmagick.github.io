@@ -2,34 +2,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta name="generator" content="ex2html.rb" />
-  <meta http-equiv="Content-Type" content=
-  "text/html; charset=us-ascii" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="css/popup.css" />
-
   <title>RMagick example: text_antialias.rb</title>
 </head>
-
 <body>
 <h1>text_antialias.rb</h1>
 <div class="bodybox">
 <div class="bodyfloat">
 <pre>
-#!/home/software/ruby-1.8.7/bin/ruby -w
-require 'RMagick'
+require 'rmagick'
 
 imgl = Magick::ImageList.new
-imgl.new_image(275, 170) { self.background_color = "white" }
+imgl.new_image(275, 170) { |info| info.background_color = 'white' }
 
 gc = Magick::Draw.new
 gc.fill('black')
 gc.stroke('transparent')
 
 if RUBY_PLATFORM =~ /mswin32/
-	gc.font_family('Georgia')
-	gc.pointsize(152)
+  gc.font_family('Georgia')
+  gc.pointsize(152)
 else
-	gc.font_family('courier')
-	gc.pointsize(200)
+  gc.font_family('courier')
+  gc.pointsize(200)
 end
 gc.font_weight(Magick::BoldWeight)
 
@@ -46,12 +42,11 @@ gc.draw(imgl)
 # Blow up the image so we can
 # easily see the image, then
 # crop to a representative portion.
-imgl.resize!(3).crop!(235,270, 365,180)
+imgl.resize!(3).crop!(235, 270, 365, 180)
 imgl.page = Magick::Rectangle.new(365, 180)
-imgl.border!(1,1,"black")
-imgl.write("text_antialias.gif")
+imgl.border!(1, 1, 'black')
+imgl.write('text_antialias.gif')
 exit
-
 </pre>
 </div>
 </div>

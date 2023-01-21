@@ -2,20 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta name="generator" content="ex2html.rb" />
-  <meta http-equiv="Content-Type" content=
-  "text/html; charset=us-ascii" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="css/popup.css" />
-
   <title>RMagick example: drop_shadow.rb</title>
 </head>
-
 <body>
 <h1>drop_shadow.rb</h1>
 <div class="bodybox">
 <div class="bodyfloat">
 <pre>
-#!/home/software/ruby-1.8.7/bin/ruby -w
-require 'RMagick'
+require 'rmagick'
 
 # Add a drop shadow to a text string. This example
 # uses a 3-image animation to show each step of the
@@ -42,22 +38,22 @@ text.stroke = 'transparent'
 
 # Draw the shadow text first. The color is a very light gray.
 # Position the text to the right and down.
-text.annotate(ex, 0,0,2,2, Text) {
-    self.fill = 'gray60'
-    }
+text.annotate(ex, 0, 0, 2, 2, Text) do |options|
+  options.fill = 'gray60'
+end
 
 # Save the first frame of the animation.
 anim &lt;&lt; ex.copy
 
 # Blur the shadow. Save a copy of the image as the 2nd frame.
-ex = ex.blur_image(0,3)
+ex = ex.blur_image(0, 3)
 anim &lt;&lt; ex.copy
 
 # Add the foreground text in solid black. Position it
 # to the left and up from the shadow text.
-text.annotate(ex, 0,0,-1,-1, Text) {
-    self.fill = 'maroon'
-    }
+text.annotate(ex, 0, 0, -1, -1, Text) do |options|
+  options.fill = 'maroon'
+end
 
 # Save yet another copy of the image as the 3rd frame.
 anim &lt;&lt; ex.copy
@@ -71,7 +67,7 @@ anim.cur_image.delay = 300
 # Iterate forever.
 anim.iterations = 0
 
-#anim.animate
+# anim.animate
 anim.write('drop_shadow.gif')
 exit
 </pre>

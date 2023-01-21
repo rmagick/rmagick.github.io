@@ -2,28 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta name="generator" content="ex2html.rb" />
-  <meta http-equiv="Content-Type" content=
-  "text/html; charset=us-ascii" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="css/popup.css" />
-
   <title>RMagick example: adaptive_threshold.rb</title>
 </head>
-
 <body>
 <h1>adaptive_threshold.rb</h1>
 <div class="bodybox">
 <div class="bodyfloat">
 <pre>
-#!/home/software/ruby-1.8.7/bin/ruby -w
-require 'RMagick'
+require 'rmagick'
 
 # Demonstrate the Image#adaptive_threshold method
 
-img = Magick::Image.read("images/Flower_Hat.jpg").first
+img = Magick::Image.read('images/Flower_Hat.jpg').first
 result = img.adaptive_threshold
-result.write("adaptive_threshold.jpg")
+result.write('adaptive_threshold.jpg')
 exit
-
 </pre>
 </div>
 </div>

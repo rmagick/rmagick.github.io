@@ -2,21 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta name="generator" content="ex2html.rb" />
-  <meta http-equiv="Content-Type" content=
-  "text/html; charset=us-ascii" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="css/popup.css" />
-
   <title>RMagick example: channel.rb</title>
 </head>
-
 <body>
 <h1>channel.rb</h1>
 <div class="bodybox">
 <div class="bodyfloat">
 <pre>
-#!/home/software/ruby-1.8.7/bin/ruby -w
-
-require 'RMagick'
+require 'rmagick'
 
 img = Magick::Image.read('images/Flower_Hat.jpg').first
 imgs = Magick::ImageList.new
@@ -29,17 +24,16 @@ imgs.cur_image['Label'] = 'GreenChannel'
 imgs &lt;&lt; img.channel(Magick::BlueChannel)
 imgs.cur_image['Label'] = 'BlueChannel'
 
-result = imgs.montage {
-    self.tile = "2x2"
-    self.background_color = 'black'
-    self.stroke = 'transparent'
-    self.fill = 'white'
-    self.pointsize =9
-    self.geometry = Magick::Geometry.new(img.columns/2, img.rows/2, 5, 5)
-    }
+result = imgs.montage do |options|
+  options.tile = '2x2'
+  options.background_color = 'black'
+  options.stroke = 'transparent'
+  options.fill = 'white'
+  options.pointsize = 9
+  options.geometry = Magick::Geometry.new(img.columns / 2, img.rows / 2, 5, 5)
+end
 
 result.write('channel.jpg')
-
 </pre>
 </div>
 </div>

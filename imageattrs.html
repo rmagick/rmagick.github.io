@@ -6,7 +6,7 @@
   <meta name="generator" content=
   "HTML Tidy for Linux/x86 (vers 6 November 2007), see www.w3.org" />
 
-  <title>RMagick 2.12.0: class Image (attribute methods)</title>
+  <title>RMagick 5.1.0: class Image (attribute methods)</title>
   <meta http-equiv="Content-Type" content=
   "text/html; charset=us-ascii" />
   <meta name="GENERATOR" content="Quanta Plus" />
@@ -25,7 +25,7 @@
 </head>
 
 <body>
-  <h6 id="header">RMagick 2.12.0 User's Guide and Reference</h6>
+  <h6 id="header">RMagick 5.1.0 User's Guide and Reference</h6>
 
   <div class="nav">
     &laquo;&nbsp;<a href="ilist.html">Prev</a> | <a href=
@@ -116,14 +116,10 @@
 
           <li><a href="#iptc_profile">iptc_profile</a></li>
 
-          <li><a href="#matte">matte</a></li>
-
           <li><a href=
           "#mean_error_per_pixel">mean_error_per_pixel</a></li>
 
           <li><a href="#mime_type">mime_type</a></li>
-
-          <li><a href="#monitor">monitor</a></li>
 
           <li><a href="#montage">montage</a></li>
 
@@ -953,25 +949,6 @@
   </div>
 
   <div class="sig">
-    <h3 id="matte">matte</h3>
-
-    <p><span class="arg">img.</span>matte -&gt; <code>true</code>
-    <em>or</em> <code>false</code><br />
-    <span class="arg">img.</span>matte = <code>true</code> or
-    <code>false</code></p>
-  </div>
-
-  <div class="desc">
-    <h4>Description</h4>
-
-    <p>If <code>true</code>, honor the opacity values in the image
-    pixels. See <a href="struct.html#Pixel">Pixel</a>.</p>
-
-    <p>This attribute is deprecated in ImageMagick 6.3.5 and later.
-    Use <a href="image1.html#alpha">alpha</a> instead.</p>
-  </div>
-
-  <div class="sig">
     <h3 id="mean_error_per_pixel">mean_error_per_pixel</h3>
 
     <p><span class="arg">img.</span>mean_error_per_pixel -&gt;
@@ -1003,93 +980,6 @@
     <p><span class="imquote">Returns the officially registered (or
     de facto) MIME media-type.</span> If there is no registered
     media-type, returns "image/x-magick". Get-only.</p>
-  </div>
-
-  <div class="sig">
-    <h3 id="monitor">monitor</h3>
-
-    <p><span class="arg">img.</span>monitor = <em>proc</em></p>
-  </div>
-
-  <div class="desc">
-    <h4>Description</h4>
-
-    <p>Establish a progress monitor. Most <code>Image</code> and
-    <code>ImageList</code> methods will periodically call the
-    monitor with arguments indicating the progress of the method.
-    The argument is a Proc object that accepts the three arguments
-    listed here:</p>
-
-    <dl>
-      <dt>method_name</dt>
-
-      <dd>The name of the monitored method.</dd>
-
-      <dt>quantum</dt>
-
-      <dd>A number between 0 and <span class="arg">span</span> that
-      identifies how much of the operation has been completed (or,
-      in some cases, remains to be completed).</dd>
-
-      <dt>span</dt>
-
-      <dd>The number of quanta needed to complete the
-      operation.</dd>
-    </dl>
-
-    <p>If the monitor proc returns <code>nil</code> or
-    <code>false</code> the operation will be immediately
-    terminated. To stop monitoring, set <code>monitor</code> to
-    <code>nil</code>. Set-only.</p>
-
-    <h4>Argument</h4>
-
-    <p>Any object that can respond to</p>
-    <pre>
-    obj.call(method_name, quantum, span)
-</pre>
-
-    <p>With very large images it is possible, though not very
-    likely, for the <span class="arg">quantum</span> and
-    <span class="arg">span</span> arguments to be
-    <code>Bignum</code> objects.</p>
-
-    <h4>Example</h4>
-    <pre>
-img.monitor = Proc.new do |method, offset, span|
-    printf("%s is %3.0f%% complete.\n", method, (offset.to_f/span)*100)
-    true
-    end
-
-img.blur_image(0,20)
-</pre>
-
-    <p><em>produces:</em></p>
-    <pre>
-blur_image is   0% complete.
-blur_image is   0% complete.
-blur_image is   0% complete.
-blur_image is   1% complete.
-blur_image is   2% complete.
-blur_image is   4% complete.
-blur_image is   7% complete.
-blur_image is  14% complete.
-blur_image is  28% complete.
-blur_image is  56% complete.
-blur_image is  56% complete.
-blur_image is  56% complete.
-blur_image is  56% complete.
-blur_image is  57% complete.
-blur_image is  59% complete.
-blur_image is  63% complete.
-blur_image is  70% complete.
-blur_image is  84% complete.
-blur_image is 100% complete.
-</pre>
-
-    <h4>See also</h4>
-
-    <p><a href="info.html#monitor">Image::Info#monitor=</a></p>
   </div>
 
   <div class="sig">
