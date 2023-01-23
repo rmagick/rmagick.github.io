@@ -6,7 +6,7 @@
   <meta name="generator" content=
   "HTML Tidy for Linux/x86 (vers 1 September 2005), see www.w3.org" />
 
-  <title>RMagick 2.12.0: Common Tasks</title>
+  <title>RMagick 5.1.0: Common Tasks</title>
   <meta http-equiv="Content-Type" content=
   "text/html; charset=us-ascii" />
   <meta name="GENERATOR" content="Quanta Plus" />
@@ -31,7 +31,7 @@
 </head>
 
 <body>
-  <h6 id="header">RMagick 2.12.0 User's Guide and Reference</h6>
+  <h6 id="header">RMagick 5.1.0 User's Guide and Reference</h6>
 
   <div class="nav">
     &laquo;&nbsp;<a href="optequiv.html">Prev</a> | <a href=
@@ -78,7 +78,7 @@
   line and then prints a variety of information about each image to
   the terminal.</p>
   <pre class="example">
-require 'RMagick'
+require "rmagick"
 ARGV.each { |file|
     puts file
     img = Magick::Image::read(file).first
@@ -255,7 +255,7 @@ thumb = img.resize_to_fit(75, 75)
   <p>For more information, see the ImageMagick documentation for
   the <code>-quality</code> option to the utility commands.</p>
   <pre class="example">
-img.write("myimage.jpg") { self.quality = 50 }
+img.write("myimage.jpg") { |options| options.quality = 50 }
 </pre>
 
   <h2 id="shadow">Making a drop shadow</h2>

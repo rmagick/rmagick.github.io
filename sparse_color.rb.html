@@ -2,73 +2,80 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta name="generator" content="ex2html.rb" />
-  <meta http-equiv="Content-Type" content=
-  "text/html; charset=us-ascii" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="css/popup.css" />
-
   <title>RMagick example: sparse_color.rb</title>
 </head>
-
 <body>
 <h1>sparse_color.rb</h1>
 <div class="bodybox">
 <div class="bodyfloat">
 <pre>
-require "RMagick"
+require 'rmagick'
 
 def draw_centers(img, all_four = true)
-   gc = Magick::Draw.new
-   gc.fill("white")
-   gc.stroke("black")
-   gc.circle(30, 10, 30, 12)
-   gc.circle(10, 80, 10, 82)
-   gc.circle(70, 60, 70, 62)
-   gc.circle(80, 20, 80, 22) if all_four
-   gc.draw(img)
-   img
+  gc = Magick::Draw.new
+  gc.fill('white')
+  gc.stroke('black')
+  gc.circle(30, 10, 30, 12)
+  gc.circle(10, 80, 10, 82)
+  gc.circle(70, 60, 70, 62)
+  gc.circle(80, 20, 80, 22) if all_four
+  gc.draw(img)
+  img
 end
 
 imgl = Magick::ImageList.new
 img = Magick::Image.new(100, 100)
 
 begin
-
-  img2 = img.sparse_color(Magick::VoronoiColorInterpolate, 30, 10, "red",
-                             10, 80, "blue", 70, 60, "lime", 80, 20, "yellow")
-  img2["Label"] = "Voroni"
+  img2 = img.sparse_color(
+    Magick::VoronoiColorInterpolate, 30, 10, 'red',
+    10, 80, 'blue', 70, 60, 'lime', 80, 20, 'yellow'
+  )
+  img2['Label'] = 'Voroni'
   imgl &lt;&lt; draw_centers(img2)
 
-  img2 = img.sparse_color(Magick::ShepardsColorInterpolate, 30, 10, "red",
-                             10, 80, "blue", 70, 60, "lime", 80, 20, "yellow")
-  img2["Label"] = "Shepards"
+  img2 = img.sparse_color(
+    Magick::ShepardsColorInterpolate, 30, 10, 'red',
+    10, 80, 'blue', 70, 60, 'lime', 80, 20, 'yellow'
+  )
+  img2['Label'] = 'Shepards'
   imgl &lt;&lt; draw_centers(img2)
 
-  img2 = img.sparse_color(Magick::BilinearColorInterpolate, 30, 10, "red",
-                             10, 80, "blue", 70, 60, "lime", 80, 20, "yellow")
-  img2["Label"] = "Bilinear"
+  img2 = img.sparse_color(
+    Magick::BilinearColorInterpolate, 30, 10, 'red',
+    10, 80, 'blue', 70, 60, 'lime', 80, 20, 'yellow'
+  )
+  img2['Label'] = 'Bilinear'
   imgl &lt;&lt; draw_centers(img2)
 
-  img2 = img.sparse_color(Magick::BarycentricColorInterpolate, 30, 10, "red",
-                             10, 80, "blue", 70, 60, "lime")
-  img2["Label"] = "Barycentric"
+  img2 = img.sparse_color(
+    Magick::BarycentricColorInterpolate, 30, 10, 'red',
+    10, 80, 'blue', 70, 60, 'lime'
+  )
+  img2['Label'] = 'Barycentric'
   imgl &lt;&lt; draw_centers(img2, false)
 
-  montage = imgl.montage do
-              self.background_color = "none"
-              self.geometry = "100x100+10+10"
-              self.tile = "2x2"
-            end
+  img2 = img.sparse_color(
+    Magick::InverseColorInterpolate, 30, 10, 'red',
+    10, 80, 'blue', 70, 60, 'lime'
+  )
+  img2['Label'] = 'Barycentric'
+  imgl &lt;&lt; draw_centers(img2, false)
 
-  montage.write("sparse_color.png")
+  montage = imgl.montage do |options|
+    options.background_color = 'none'
+    options.geometry = '100x100+10+10'
+    options.tile = '2x2'
+  end
 
+  montage.write('sparse_color.png')
 rescue NotImplementedError, NameError
-
-  img = Magick::Image.read("images/notimplemented.gif").first
+  img = Magick::Image.read('images/notimplemented.gif').first
   img.resize!(240, 272)
-  img.write("sparse_color.png")
-
+  img.write('sparse_color.png')
 end
-
 </pre>
 </div>
 </div>

@@ -2,33 +2,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta name="generator" content="ex2html.rb" />
-  <meta http-equiv="Content-Type" content=
-  "text/html; charset=us-ascii" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="css/popup.css" />
-
   <title>RMagick example: add_noise.rb</title>
 </head>
-
 <body>
 <h1>add_noise.rb</h1>
 <div class="bodybox">
 <div class="bodyfloat">
 <pre>
-#!/home/software/ruby-1.8.7/bin/ruby -w
-require 'RMagick'
+require 'rmagick'
 
 # Demonstrate the Image#add_noise method
-NOISE_TYPES = [Magick::UniformNoise, Magick::GaussianNoise,
-               Magick::MultiplicativeGaussianNoise,
-               Magick::ImpulseNoise, Magick::LaplacianNoise,
-               Magick::PoissonNoise]
+NOISE_TYPES = [
+  Magick::UniformNoise, Magick::GaussianNoise,
+  Magick::MultiplicativeGaussianNoise,
+  Magick::ImpulseNoise, Magick::LaplacianNoise,
+  Magick::PoissonNoise
+]
 
 img = Magick::Image.read('images/Flower_Hat.jpg').first
 
 NOISE_TYPES.each do |noise|
-    copy = img.add_noise(noise)
-    copy.write "add_noise_#{noise.to_s}.jpg"
-
+  copy = img.add_noise(noise)
+  copy.write "add_noise_#{noise}.jpg"
 end
 exit
 </pre>

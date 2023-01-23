@@ -6,7 +6,7 @@
   <meta name="generator" content=
   "HTML Tidy for Linux/x86 (vers 6 November 2007), see www.w3.org" />
 
-  <title>RMagick 2.12.0: class ImageList</title>
+  <title>RMagick 5.1.0: class ImageList</title>
   <meta http-equiv="Content-Type" content=
   "text/html; charset=us-ascii" />
   <meta name="GENERATOR" content="Quanta Plus" />
@@ -20,7 +20,7 @@
 </head>
 
 <body>
-  <h6 id="header">RMagick 2.12.0 User's Guide and Reference</h6>
+  <h6 id="header">RMagick 5.1.0 User's Guide and Reference</h6>
 
   <div class="nav">
     &laquo;&nbsp;<a href="magick.html">Prev</a> | <a href=
@@ -95,8 +95,6 @@
         <li><a href="#fx">fx</a></li>
 
         <li><a href="#inspect">inspect</a></li>
-
-        <li><a href="#map">map</a></li>
 
         <li><a href="#montage">montage</a></li>
 
@@ -468,7 +466,7 @@ example &lt;&lt; model.add_noise Magick::LaplacisanNoise
     <h4>Example</h4>
     <pre>
 ilist.animate
-ilist.animate { self.server_name = "other:0.0" }
+ilist.animate { |options| options.server_name = "other:0.0" }
 </pre>
 
     <h4>See also</h4>
@@ -917,7 +915,7 @@ imagelist2 = imagelist1.copy
 
     <h4>Example</h4>
     <pre>
-require 'RMagick'
+require "rmagick"
 
 f = File.open('Cheetah.jpg')
 blob = f.read
@@ -1000,7 +998,7 @@ ilist.display
     <pre>
 # Produce a navy blue image from a black image
 imgl = Magick::ImageList.new
-imgl &lt;&lt; Magick::Image.new(64, 64) {self.background_color = 'black'}
+imgl &lt;&lt; Magick::Image.new(64, 64) { |options| options.background_color = 'black'}
 
 res = imgl.fx('1/2', Magick::BlueChannel)
 </pre>
@@ -1047,53 +1045,6 @@ scene=1
     <h4>See also</h4>
 
     <p><a href="image2.html#inspect">Image#inspect</a></p>
-  </div>
-
-  <div class="sig">
-    <h3 id="map">map</h3>
-
-    <p><span class="arg">ilist</span>.map(<span class=
-    "arg">reference</span>, <span class="arg">dither</span>) -&gt;
-    <em>imagelist</em></p>
-  </div>
-
-  <div class="desc">
-    <h4>Description</h4>
-
-    <p>Reduces the colors in the imagelist images to the set of
-    colors in the <span class="arg">reference</span> image.</p>
-
-    <h4>Arguments</h4>
-
-    <dl>
-      <dt>reference</dt>
-
-      <dd>An image or a imagelist. If an imagelist,
-      <code>map</code> uses the current image as the reference
-      image.</dd>
-
-      <dt>dither</dt>
-
-      <dd>if <code>true</code>, dither the mapped images.</dd>
-    </dl>
-
-    <h4>Returns</h4>
-
-    <p>A new imagelist the same length as the receiver.</p>
-
-    <h4>Notes</h4>
-
-    <p>This method is deprecated when using ImageMagick 6.4.3-6 and
-    later. Use <a href="#remap">remap</a> instead.</p>
-
-    <h4>See also</h4>
-
-    <p><a href="image2.html#map">Image#map</a>, <a href=
-    "#quantize">quantize</a></p>
-
-    <h4>Magick API</h4>
-
-    <p>MapImages</p>
   </div>
 
   <div class="sig">
@@ -1181,10 +1132,10 @@ scene=1
         surround each tile with a frame 20 pixels wide by 20 pixels
         high and a 4-pixel inner and outer bevel, use:
         <pre>
-self.frame = "20x20+4+4"
+options.frame = "20x20+4+4"
 </pre>or
         <pre>
-self.frame = Magick::Geometry.new(20,20,4,4)
+options.frame = Magick::Geometry.new(20,20,4,4)
 </pre>
       </dd>
 
@@ -1210,10 +1161,10 @@ self.frame = Magick::Geometry.new(20,20,4,4)
         194 pixels tall, with 10 pixels between each column of
         tiles and 5 between each row, use:
         <pre>
-self.geometry = "130x194+10+5"
+options.geometry = "130x194+10+5"
 </pre>or
         <pre>
-self.geometry = Magick::Geometry.new(130, 194, 10, 5)
+options.geometry = Magick::Geometry.new(130, 194, 10, 5)
 </pre>Both the geometry string and the <code>Geometry</code> object
 support flags that specify additional constraints. The default
 geometry is "120x120+4+3&gt;".
@@ -1252,7 +1203,7 @@ geometry is "120x120+4+3&gt;".
         color. For example, to use ImageMagick's built-in "granite"
         texture as the background, use:
         <pre>
-self.texture = Magick::Image.read("granite:").first
+options.texture = Magick::Image.read("granite:").first
 </pre>
 
         <p>The default is no texture.</p>
@@ -1272,10 +1223,10 @@ self.texture = Magick::Image.read("granite:").first
         generates all the rows, leaving empty cells if necessary.
         To arrange the tiles 4 across and 10 down, use:
         <pre>
-self.tile = "4x10"
+options.tile = "4x10"
 </pre>or
         <pre>
-self.tile = Magick::Geometry.new(4,10)
+options.tile = Magick::Geometry.new(4,10)
 </pre>
 
         <p>The default is "6x4". If there are too many tiles to fit
@@ -1429,7 +1380,7 @@ img[2]['Label'] = "Mom's Birthday"
     <p>Create a square red image.</p>
     <pre>
 ilist = Magick::ImageList.new
-ilist.new_image(100, 100) { self.background_color = "red" }
+ilist.new_image(100, 100) { |options| options.background_color = "red" }
 </pre>
   </div>
 

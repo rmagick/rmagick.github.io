@@ -2,34 +2,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta name="generator" content="ex2html.rb" />
-  <meta http-equiv="Content-Type" content=
-  "text/html; charset=us-ascii" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="css/popup.css" />
-
   <title>RMagick example: chop.rb</title>
 </head>
-
 <body>
 <h1>chop.rb</h1>
 <div class="bodybox">
 <div class="bodyfloat">
 <pre>
-#!/home/software/ruby-1.8.7/bin/ruby -w
-require 'RMagick'
+require 'rmagick'
 
 # Demonstrate the Image#chop method
 
 img = Magick::Image.read('images/Flower_Hat.jpg')[0]
 
 # Chop the specified rectangle out of the img.
-chopped = img.chop(0, img.rows/2, img.columns/2, img.rows)
+chopped = img.chop(0, img.rows / 2, img.columns / 2, img.rows)
 
 # Make a "before" image by highlighting the chopped area.
 gc = Magick::Draw.new
 gc.fill('white')
 gc.stroke('transparent')
 gc.fill_opacity(0.25)
-gc.rectangle(0, img.rows/2, img.columns/2, img.rows)
+gc.rectangle(0, img.rows / 2, img.columns / 2, img.rows)
 gc.draw(img)
 
 img.write('chop_before.jpg')
