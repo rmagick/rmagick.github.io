@@ -4,17 +4,17 @@
   <meta name="generator" content="ex2html.rb" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="css/popup.css" />
-  <title>RMagick example: OrigCoordSys.rb</title>
+  <title>RMagick example: orig_coord_sys.rb</title>
 </head>
 <body>
-<h1>OrigCoordSys.rb</h1>
+<h1>orig_coord_sys.rb</h1>
 <div class="bodybox">
 <div class="bodyfloat">
 <pre>
 require 'rvg/rvg'
 
 rvg = Magick::RVG.new(400, 150) do |canvas|
-  canvas.desc = 'Example OrigCoordSys - Simple transformations: original picture'
+  canvas.desc = 'Example - Simple transformations: original picture'
   canvas.background_fill = 'white'
 
   canvas.g.styles(fill: 'none', stroke: 'black', stroke_width: 3) do |grp|
@@ -26,7 +26,7 @@ rvg = Magick::RVG.new(400, 150) do |canvas|
   canvas.text(30, 30, 'ABC (orig coord system)').styles(font_size: 20, font_family: 'Verdana', font_weight: 'normal', font_style: 'normal')
 end
 
-rvg.draw.write('OrigCoordSys.gif')
+rvg.draw.write('orig_coord_sys.gif')
 </pre>
 </div>
 </div>

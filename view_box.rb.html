@@ -4,10 +4,10 @@
   <meta name="generator" content="ex2html.rb" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="css/popup.css" />
-  <title>RMagick example: ViewBox.rb</title>
+  <title>RMagick example: view_box.rb</title>
 </head>
 <body>
-<h1>ViewBox.rb</h1>
+<h1>view_box.rb</h1>
 <div class="bodybox">
 <div class="bodyfloat">
 <pre>
@@ -17,9 +17,9 @@ def example(cols, rows)
   rvg = Magick::RVG.new(cols, rows) do |canvas|
     canvas.background_fill = 'white'
     canvas.desc = &lt;&lt;-'END_DESC'
-            Example ViewBox - uses the viewBox attribute to automatically create an
-            initial user coordinate system which causes the graphic to scale to fit
-            into the viewport no matter what size the viewport is.
+            Example - uses the viewBox attribute to automatically create an initial
+            user coordinate system which causes the graphic to scale to fit into
+            the viewport no matter what size the viewport is.
     END_DESC
 
     canvas.viewbox(0, 0, 1500, 1000)
@@ -40,8 +40,8 @@ def example(cols, rows)
   rvg.draw
 end
 
-example(300, 200).write('ViewBox_300x200.gif')
-example(150, 200).write('ViewBox_150x200.gif')
+example(300, 200).write('view_box_300x200.gif')
+example(150, 200).write('view_box_150x200.gif')
 </pre>
 </div>
 </div>
