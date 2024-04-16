@@ -4,10 +4,10 @@
   <meta name="generator" content="ex2html.rb" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="css/popup.css" />
-  <title>RMagick example: Use02.rb</title>
+  <title>RMagick example: use02.rb</title>
 </head>
 <body>
-<h1>Use02.rb</h1>
+<h1>use02.rb</h1>
 <div class="bodybox">
 <div class="bodyfloat">
 <pre>
@@ -17,7 +17,7 @@ Magick::RVG.dpi = 90
 
 rvg = Magick::RVG.new(10.cm, 3.5.cm).viewbox(0, 0, 100, 35) do |canvas|
   canvas.background_fill = 'white'
-  canvas.desc = "Example Use02 - Chain 'styles' to 'use'"
+  canvas.desc = "Example - Chain 'styles' to 'use'"
   r = Magick::RVG::Group.new do |grp|
     grp.rect(60, 10).styles(fill: 'yellow')
   end
@@ -30,7 +30,7 @@ rvg = Magick::RVG.new(10.cm, 3.5.cm).viewbox(0, 0, 100, 35) do |canvas|
   canvas.use(r, 20, 20).styles(fill: 'green', stroke: 'blue')
 end
 
-rvg.draw.write('Use02.gif')
+rvg.draw.write('use02.gif')
 </pre>
 </div>
 </div>
