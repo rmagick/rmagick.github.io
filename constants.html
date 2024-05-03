@@ -4,7 +4,7 @@
   <head>
     <meta name="generator" content="HTML Tidy for Linux/x86 (vers 7 December 2008), see www.w3.org" />
 
-    <title>RMagick 5.5.0: Constants</title>
+    <title>RMagick 6.0.0: Constants</title>
     <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
     <meta name="GENERATOR" content="Quanta Plus" />
     <meta name="Copyright" content="Copyright (C) 2006 by Timothy P. Hunter" />
@@ -57,7 +57,7 @@
   </head>
 
   <body>
-    <h6 id="header">RMagick 5.5.0 User's Guide and Reference</h6>
+    <h6 id="header">RMagick 6.0.0 User's Guide and Reference</h6>
 
     <div class="nav">&laquo;&nbsp;<a href="info.html">Prev</a> | <a href="index.html">Contents</a> | <a href="rvgtut.html">Next</a>&nbsp;&raquo;</div>
 
@@ -348,6 +348,16 @@ RMAGICK_ENABLE_MANAGED_MEMORY = true
       <dd>In the RGB colorspace, the red, blue, green, and alpha channels. In the CMYK colorspace, the cyan, magenta, yellow, and black channels.</dd>
 
       <dt>GrayChannel</dt>
+
+      <dt>CompositeChannels</dt>
+
+      <dt>TrueAlphaChannel</dt>
+
+      <dt>RGBChannels</dt>
+
+      <dt>GrayChannels</dt>
+
+      <dt>SyncChannels</dt>
 
       <dt>AlphaChannel</dt>
 
@@ -1024,6 +1034,8 @@ ruby -rRMagick -e"Magick::ColorspaceType.values {|cs| puts cs}"
     <p>The value of the <a href="imageattrs.html#dispose">dispose</a> attribute.</p>
 
     <dl>
+      <dt>UnrecognizedDispose</dt>
+
       <dt>UndefinedDispose</dt>
 
       <dd>No disposal specified.</dd>
