@@ -24,7 +24,7 @@ gc.annotate(img, 0, 0, 0, -15, 'RUBY!') do |options|
   options.stroke_width = 2
   options.font_weight = Magick::BoldWeight
   options.gravity = Magick::SouthGravity
-  if RUBY_PLATFORM =~ /mswin32/
+  if RUBY_PLATFORM.include?('mingw')
     options.font_family = 'Georgia'
     options.pointsize = 76
   else
@@ -34,10 +34,8 @@ gc.annotate(img, 0, 0, 0, -15, 'RUBY!') do |options|
 end
 
 # Add a little bit of shading
-if Magick.const_defined? 'HardLightCompositeOp'
-  shade = img.shade(true, 310, 30)
-  img.composite!(shade, Magick::CenterGravity, Magick::HardLightCompositeOp)
-end
+shade = img.shade(true, 310, 30)
+img.composite!(shade, Magick::CenterGravity, Magick::HardLightCompositeOp)
 
 # Create the default reflection
 reflection = img.wet_floor

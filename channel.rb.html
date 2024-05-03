@@ -19,7 +19,7 @@ imgs = Magick::ImageList.new
 imgs &lt;&lt; img
 imgs &lt;&lt; img.channel(Magick::RedChannel)
 imgs.cur_image['Label'] = 'RedChannel'
-imgs &lt;&lt;  img.channel(Magick::GreenChannel)
+imgs &lt;&lt; img.channel(Magick::GreenChannel)
 imgs.cur_image['Label'] = 'GreenChannel'
 imgs &lt;&lt; img.channel(Magick::BlueChannel)
 imgs.cur_image['Label'] = 'BlueChannel'
