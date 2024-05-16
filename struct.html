@@ -4,7 +4,7 @@
   <head>
     <meta name="generator" content="HTML Tidy for Linux/x86 (vers 6 November 2007), see www.w3.org" />
 
-    <title>RMagick 6.0.0: Miscellaneous classes</title>
+    <title>RMagick 6.0.1: Miscellaneous classes</title>
     <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
     <meta name="GENERATOR" content="Quanta Plus" />
     <meta name="Copyright" content="Copyright (C) 2006 by Timothy P. Hunter" />
@@ -21,7 +21,7 @@
   </head>
 
   <body>
-    <h6 id="header">RMagick 6.0.0 User's Guide and Reference</h6>
+    <h6 id="header">RMagick 6.0.1 User's Guide and Reference</h6>
 
     <div class="nav">&laquo;&nbsp;<a href="draw.html">Prev</a> | <a href="index.html">Contents</a> | <a href="info.html">Next</a>&nbsp;&raquo;</div>
 
@@ -237,7 +237,7 @@
         <pre>
   # Get the value of the green channel of
   # the top-left pixel in the view.
-  view[0][0] = Pixel(0,128,255)
+  view[0][0] = Magick::Pixel.new(0,128,255)
   g = view[0][0].green  # returns 128
 
   # Get the maximum value of the red channel
@@ -299,7 +299,7 @@
         <pre>
   # Set the red channel of all the pixels in the 2nd
   # row of the view to QuantumRange
-  view[1][].red = QuantumRange
+  view[1][].red = Magick::QuantumRange
   # Set the green channel of the pixel at [20][30] to
   # half that of its left-hand neighbor.
   view[20][30].green = view[20][29].green * 0.5
