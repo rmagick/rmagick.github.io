@@ -4,7 +4,7 @@
   <head>
     <meta name="generator" content="HTML Tidy for Linux/x86 (vers 7 December 2008), see www.w3.org" />
 
-    <title>RMagick 6.0.0: class Draw</title>
+    <title>RMagick 6.0.1: class Draw</title>
     <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
     <meta name="GENERATOR" content="Quanta Plus" />
     <meta name="Copyright" content="Copyright (C) 2006 by Timothy P. Hunter" />
@@ -20,7 +20,7 @@
   </head>
 
   <body>
-    <h6 id="header">RMagick 6.0.0 User's Guide and Reference</h6>
+    <h6 id="header">RMagick 6.0.1 User's Guide and Reference</h6>
 
     <div class="nav">&laquo;&nbsp;<a href="image3.html">Prev</a> | <a href="index.html">Contents</a> | <a href="struct.html">Next</a>&nbsp;&raquo;</div>
 
@@ -291,7 +291,7 @@
 
       <h4>Example</h4>
       <pre>
-gc = Draw.new
+gc = Magick::Draw.new
 </pre
       >
     </div>
@@ -364,12 +364,12 @@ gc = Draw.new
       </p>
       <pre>
 title.annotate(montage, 0,0,0,40, 'Named Colors') { |options|
-    options.font_family = 'Helvetica'
-    options.fill = 'white'
-    options.stroke = 'transparent'
-    options.pointsize = 32
-    options.font_weight = BoldWeight
-    options.gravity = NorthGravity
+  options.font_family = 'Helvetica'
+  options.fill = 'white'
+  options.stroke = 'transparent'
+  options.pointsize = 32
+  options.font_weight = BoldWeight
+  options.gravity = NorthGravity
 }
 </pre
       >
