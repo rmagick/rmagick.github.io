@@ -4,7 +4,7 @@
   <head>
     <meta name="generator" content="HTML Tidy for Linux/x86 (vers 7 December 2008), see www.w3.org" />
 
-    <title>RMagick 7.0.5: class Image (class methods and instance methods a-d)</title>
+    <title>RMagick 7.1.1: class Image (class methods and instance methods a-d)</title>
     <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
     <meta name="GENERATOR" content="Quanta Plus" />
     <meta name="Copyright" content="Copyright (C) 2006 by Timothy P. Hunter" />
@@ -45,7 +45,7 @@
   </head>
 
   <body>
-    <h6 id="header">RMagick 7.0.5 User's Guide and Reference</h6>
+    <h6 id="header">RMagick 7.1.1 User's Guide and Reference</h6>
 
     <div class="nav">&laquo;&nbsp;<a href="imageattrs.html">Prev</a> | <a href="index.html">Contents</a> | <a href="image2.html">Next</a>&nbsp;&raquo;</div>
 
@@ -129,6 +129,8 @@
             <li><a href="#alpha_q">alpha?</a></li>
 
             <li><a href="#annotate">annotate</a></li>
+
+            <li><a href="#artifact">artifact</a></li>
 
             <li><a href="#auto_gamma_channel">auto_gamma_channel</a></li>
 
@@ -1585,6 +1587,48 @@ img = Magick::Image.read_inline(content)
       <h4>Returns</h4>
 
       <p>self</p>
+    </div>
+
+    <div class="sig">
+      <h3 id="artifact">artifact</h3>
+
+      <p><span class="arg">img</span>.artifact(<span class="arg">name</span>) -&gt; <em>string or nil</em></p>
+    </div>
+
+    <div class="desc">
+      <h4>Description</h4>
+
+      <p>
+        Return the value of an artifact. Artifacts are set by <code>Image#define</code>, by the
+        <a href="info.html#define">Image::Info#define</a> method in a block passed to <code>write</code> or <code>to_blob</code>, and by the
+        <code>OptionalMethodArguments</code> class. They are separate from image properties, so neither <code>Image#[]</code> nor
+        <a href="image3.html#properties">properties</a> returns them.
+      </p>
+
+      <h4>Arguments</h4>
+
+      <dl>
+        <dt>name</dt>
+
+        <dd>The name of the artifact. An artifact set by <code>Image::Info#define(format, key, value)</code> is named <code>"format:key"</code>.</dd>
+      </dl>
+
+      <h4>Returns</h4>
+
+      <p>The value of the artifact, or <code>nil</code> if it is not set.</p>
+
+      <h4>Example</h4>
+
+      <pre class="language-ruby">
+img = Magick::Image.new(50, 50)
+img.define('myapp:tag', 'hello')
+img.artifact('myapp:tag')      #=&gt; "hello"
+img.artifact('myapp:missing')  #=&gt; nil
+</pre>
+
+      <h4>Magick API</h4>
+
+      <p>GetImageArtifact</p>
     </div>
 
     <div class="sig">
