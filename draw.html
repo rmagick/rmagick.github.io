@@ -4,7 +4,7 @@
   <head>
     <meta name="generator" content="HTML Tidy for Linux/x86 (vers 7 December 2008), see www.w3.org" />
 
-    <title>RMagick 7.1.4: class Draw</title>
+    <title>RMagick 7.1.6: class Draw</title>
     <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
     <meta name="GENERATOR" content="Quanta Plus" />
     <meta name="Copyright" content="Copyright (C) 2006 by Timothy P. Hunter" />
@@ -26,7 +26,7 @@
   </head>
 
   <body>
-    <h6 id="header">RMagick 7.1.4 User's Guide and Reference</h6>
+    <h6 id="header">RMagick 7.1.6 User's Guide and Reference</h6>
 
     <div class="nav">&laquo;&nbsp;<a href="image3.html">Prev</a> | <a href="index.html">Contents</a> | <a href="struct.html">Next</a>&nbsp;&raquo;</div>
 
@@ -553,13 +553,13 @@ title.annotate(montage, 0,0,0,40, 'Named Colors') { |options|
     <div class="sig">
       <h3 id="clone">clone</h3>
 
-      <p><span class="arg">draw</span>.clone -&gt; <em>other_draw</em></p>
+      <p><span class="arg">draw</span>.clone(freeze: nil) -&gt; <em>other_draw</em></p>
     </div>
 
     <div class="desc">
       <h4>Description</h4>
 
-      <p>Same as <a href="#dup">dup</a> except the frozen state of the original is propagated to the copy.</p>
+      <p>Same as <a href="#dup">dup</a> except the frozen state of the original is propagated to the copy. As with <code>Object#clone</code>, <code>freeze: false</code> or <code>freeze: true</code> sets the frozen state of the copy instead.</p>
 
       <h4>Returns</h4>
 
@@ -746,6 +746,15 @@ title.annotate(montage, 0,0,0,40, 'Named Colors') { |options|
         </tr>
 
         <tr>
+          <td>pixels_per_em</td>
+
+          <td>
+            A <a href="struct.html#Point">Point</a> whose <code>x</code> and <code>y</code> are the number of pixels per em, the font size in pixels,
+            horizontally and vertically. It depends on the point size and the <a href="#density_eq">density</a>.
+          </td>
+        </tr>
+
+        <tr>
           <td>ascent</td>
 
           <td>Distance in pixels from the text baseline to the highest/upper grid coordinate used to place an outline point. Always a positive value.</td>
@@ -773,6 +782,28 @@ title.annotate(montage, 0,0,0,40, 'Named Colors') { |options|
           <td>max_advance</td>
 
           <td>Maximum horizontal advance (advance from the beginning of a character to the beginning of the next character) in pixels.</td>
+        </tr>
+
+        <tr>
+          <td>bounds</td>
+
+          <td>
+            A <a href="struct.html#Segment">Segment</a> that contains every glyph of the text, with each glyph measured from its own origin:
+            <code>x1</code> and <code>y1</code> are the smallest left and bottom edges, and <code>x2</code> and <code>y2</code> the largest right and top edges.
+            It is not the bounding box of the whole text; use <code>width</code> and <code>height</code> for that.
+          </td>
+        </tr>
+
+        <tr>
+          <td>underline_position</td>
+
+          <td>Distance in pixels from the baseline to the underline. A negative value is below the baseline.</td>
+        </tr>
+
+        <tr>
+          <td>underline_thickness</td>
+
+          <td>Thickness of the underline in pixels.</td>
         </tr>
       </table>
 

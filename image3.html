@@ -4,7 +4,7 @@
   <head>
     <meta name="generator" content="HTML Tidy for Linux/x86 (vers 7 December 2008), see www.w3.org" />
 
-    <title>RMagick 7.1.4: class Image (instance methods p-w)</title>
+    <title>RMagick 7.1.6: class Image (instance methods p-w)</title>
     <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
     <meta name="GENERATOR" content="Quanta Plus" />
     <meta name="Copyright" content="Copyright (C) 2006 by Timothy P. Hunter" />
@@ -52,7 +52,7 @@
   </head>
 
   <body>
-    <h6 id="header">RMagick 7.1.4 User's Guide and Reference</h6>
+    <h6 id="header">RMagick 7.1.6 User's Guide and Reference</h6>
 
     <div class="nav">&laquo;&nbsp;<a href="image2.html">Prev</a> | <a href="index.html">Contents</a> | <a href="draw.html">Next</a>&nbsp;&raquo;</div>
 
@@ -106,6 +106,8 @@
             <li><a href="#remap">remap</a></li>
 
             <li><a href="#resample">resample</a></li>
+
+            <li><a href="#resample_bang">resample!</a></li>
 
             <li><a href="#resize">resize</a></li>
 
@@ -207,6 +209,8 @@
 
             <li><a href="#thumbnail_bang">thumbnail!</a></li>
 
+            <li><a href="#tint">tint</a></li>
+
             <li><a href="#to_blob">to_blob</a></li>
 
             <li><a href="#to_color">to_color</a></li>
@@ -226,6 +230,8 @@
             <li><a href="#trim">trim</a></li>
 
             <li><a href="#trim_bang">trim!</a></li>
+
+            <li><a href="#undefine">undefine</a></li>
 
             <li><a href="#unique_colors">unique_colors</a></li>
 
@@ -389,7 +395,8 @@
 
       <p>
         Produce an image that looks like a Polaroid&reg; instant picture. If the image has a "Caption" <a href="image1.html#aset">property</a>, the value is
-        used as a caption.
+        used as a caption. A caption whose first non-blank character is <code>@</code>, or that contains a <code>%[fx:@...]</code>,
+        <code>%[hex:@...]</code> or <code>%[pixel:@...]</code> escape, raises <code>ArgumentError</code>, because ImageMagick would read the file it names.
       </p>
 
       <p>
@@ -619,7 +626,11 @@ end
       <dl>
         <dt>name</dt>
 
-        <dd>The profile name, or "*" to represent all the profiles in the image.</dd>
+        <dd>
+          The profile name, or "*" to represent all the profiles in the image. To add a profile, the name must be one of the profile formats of ImageMagick's
+          META coder: 8BIM, 8BIMTEXT, 8BIMWTEXT, APP1, APP1JPEG, EXIF, ICC, ICM, IPTC, IPTCTEXT, IPTCWTEXT or XMP, in any case. Any other name raises
+          <code>ArgumentError</code>, since ImageMagick would decode the profile with the coder of that name.
+        </dd>
 
         <dt>profile</dt>
 
@@ -1228,6 +1239,10 @@ random_threshold_channel(geom, Magick::RedChannel)
         <img src="ex/images/spin.gif" alt="" class="spin" style="left: 202px" title="Mouse over the example to see the original image" />
       </p>
 
+      <h4>Notes</h4>
+
+      <p>This method was named <code>affinity</code> in earlier releases of RMagick. That name remains an alias for <code>remap</code>.</p>
+
       <h4>See also</h4>
 
       <p><a href="ilist.html#remap">ImageList#remap</a></p>
@@ -1240,7 +1255,10 @@ random_threshold_channel(geom, Magick::RedChannel)
     <div class="sig">
       <h3 id="resample">resample</h3>
 
-      <p><span class="arg">img</span>.resample(<span class="arg">horizontal_res</span>=72.0[, <span class="arg">vertical_res</span>]) -&gt; <em>image</em></p>
+      <p>
+        <span class="arg">img</span>.resample(<span class="arg">horizontal_res</span>=72.0[, <span class="arg">vertical_res</span>[,
+        <span class="arg">filter</span>[, <span class="arg">blur</span>]]]) -&gt; <em>image</em>
+      </p>
     </div>
 
     <div class="desc">
@@ -1272,7 +1290,71 @@ random_threshold_channel(geom, Magick::RedChannel)
           the target vertical resolution. The default is
           <span class="arg">horizontal_res</span>.
         </dd>
+
+        <dt>filter</dt>
+
+        <dd>
+          The <a href="constants.html#FilterType">filter</a> to use. The default is the value of the receiver's
+          <a href="imageattrs.html#filter">filter attribute</a>. That attribute is <code>UndefinedFilter</code> unless it has been set, and then
+          ImageMagick uses <code>LanczosFilter</code>, or <code>MitchellFilter</code> when enlarging or when the image has an alpha channel or a
+          palette.
+        </dd>
+
+        <dt>blur</dt>
+
+        <dd>
+          The blur factor of the filter. The default is 1.0, which changes nothing; a value greater than 1.0 blurs and a value less than 1.0 sharpens. It
+          is multiplied by the <code>"filter:blur"</code> artifact if the image has one. In RMagick 7.1.5 and earlier with ImageMagick 7, the image was
+          instead blurred or sharpened before resampling, so even the default 1.0 sharpened it slightly.
+        </dd>
       </dl>
+
+      <h4>Returns</h4>
+
+      <p>A new image</p>
+
+      <h4>Example</h4>
+
+      <pre class="language-ruby">
+img = Magick::Image.new(300, 200)
+img.density = '300x300'
+res = img.resample(72)
+[res.columns, res.rows] #=&gt; [72, 48]
+</pre>
+
+      <h4>Notes</h4>
+
+      <p>An image with no resolution, such as one created by <code>Image.new</code>, is resampled as if it were 72 DPI.</p>
+
+      <h4>See also</h4>
+
+      <p>
+        <a href="#resample_bang">resample!</a>,
+        <a href="#resize">resize</a>
+      </p>
+
+      <h4>Magick API</h4>
+
+      <p>ResampleImage</p>
+    </div>
+
+    <div class="sig">
+      <h3 id="resample_bang">resample!</h3>
+
+      <p>
+        <span class="arg">img</span>.resample!(<span class="arg">horizontal_res</span>=72.0[, <span class="arg">vertical_res</span>[,
+        <span class="arg">filter</span>[, <span class="arg">blur</span>]]]) -&gt; <em>self</em>
+      </p>
+    </div>
+
+    <div class="desc">
+      <h4>Description</h4>
+
+      <p>In-place form of <a href="#resample">resample</a>. Raises <code>FrozenError</code> if the image is frozen.</p>
+
+      <h4>Returns</h4>
+
+      <p>self</p>
     </div>
 
     <div class="sig">
@@ -3350,6 +3432,83 @@ thumbnail = img.thumbnail(img.columns * 0.09, img.rows * 0.09)
     </div>
 
     <div class="sig">
+      <h3 id="tint">tint</h3>
+
+      <p>
+        <span class="arg">img</span>.tint(<span class="arg">color</span>, <span class="arg">red_pct</span>[, <span class="arg">green_pct</span>[,
+        <span class="arg">blue_pct</span>[, <span class="arg">alpha_pct</span>]]]) -&gt; <em>image</em>
+      </p>
+    </div>
+
+    <div class="desc">
+      <h4>Description</h4>
+
+      <p>
+        Tints the midtones of the image with the specified color. This method corresponds to ImageMagick's
+        <a href="https://usage.imagemagick.org/color_mods/#tinting">-tint</a> option. Pure black and pure white are not changed, and the closer a
+        channel value is to the middle of its range, the more it is changed.
+      </p>
+
+      <h4>Arguments</h4>
+
+      <dl>
+        <dt>color</dt>
+
+        <dd>The tint color, as a color name or a <a href="struct.html#Pixel">Pixel</a>.</dd>
+
+        <dt>red_pct, green_pct, blue_pct</dt>
+
+        <dd>
+          How much of each channel of <span class="arg">color</span> to apply, as a fraction: 1.0 is 100%. They must not be negative.
+          <span class="arg">green_pct</span> defaults to <span class="arg">red_pct</span>, and so does <span class="arg">blue_pct</span>, not to
+          <span class="arg">green_pct</span>, when only <span class="arg">green_pct</span> is given.
+        </dd>
+
+        <dt>alpha_pct</dt>
+
+        <dd>Accepted but ignored: the alpha channel is left unchanged.</dd>
+      </dl>
+
+      <h4>Returns</h4>
+
+      <p>A new image</p>
+
+      <h4>Example</h4>
+
+      <pre class="language-ruby">
+img = Magick::Image.read('Flower_Hat.jpg').first
+
+# Tint the midtones red
+img.tint('red', 0.5)
+
+# With white, whose intensity is 1.0, a percentage of 1.0 leaves a channel unchanged
+# and a lower one darkens its midtones: mid-gray becomes [127, 76, 76] of 255
+img.tint('white', 1.0, 0.8, 0.8)
+</pre>
+
+      <h4>Notes</h4>
+
+      <p>
+        Each channel moves by its percentage times the same channel of <span class="arg">color</span>, minus the intensity of <span class="arg">color</span>,
+        scaled by 1 - 4 &times; (<em>v</em> - 0.5)<sup>2</sup> for a channel value <em>v</em> from 0.0 to 1.0. So a percentage of 0.0 does not leave a
+        channel alone: its midtones get darker by the intensity of <span class="arg">color</span>.
+      </p>
+
+      <p>
+        With an HDRI build of ImageMagick, the result is not clamped. For example, a mid-gray pixel tinted with <code>tint('red', 1.0)</code> has a red
+        value of 84237, above <a href="constants.html#Miscellaneous_constants">QuantumRange</a> (65535), with Q16-HDRI.
+      </p>
+
+      <h4>See also</h4>
+
+      <p><a href="image1.html#colorize">colorize</a></p>
+
+      <h4>Magick API</h4>
+
+      <p>TintImage</p>
+    </div>
+
+    <div class="sig">
       <h3 id="to_blob">to_blob</h3>
 
       <p><span class="arg">img</span>.to_blob <span class="arg">[ { optional arguments } ]</span>-&gt; <em>string</em></p>
@@ -3725,6 +3884,63 @@ img.to_color(pixel)                                        #=&gt; "#D8936A"
       <h4>Returns</h4>
 
       <p>self</p>
+    </div>
+
+    <div class="sig">
+      <h3 id="undefine">undefine</h3>
+
+      <p><span class="arg">img</span>.undefine(<span class="arg">name</span>) -&gt; <em>self</em></p>
+    </div>
+
+    <div class="desc">
+      <h4>Description</h4>
+
+      <p>
+        Removes an artifact of the image, such as one set by <a href="image1.html#define">define</a> or by <code>options.define</code> in the
+        optional-arguments block of <a href="image1.html#distort">distort</a>. Removing an artifact that is not set does nothing. This is the same as
+        <code>define(name, nil)</code>, except that it returns <em>self</em>, so calls can be chained, and that <span class="arg">name</span> must be a
+        string.
+      </p>
+
+      <h4>Arguments</h4>
+
+      <dl>
+        <dt>name</dt>
+
+        <dd>
+          The name of the artifact, as a string. Unlike with <a href="image1.html#define">define</a>, it is not converted, so a symbol raises
+          <code>TypeError</code>.
+        </dd>
+      </dl>
+
+      <h4>Returns</h4>
+
+      <p>self</p>
+
+      <h4>Example</h4>
+
+      <pre class="language-ruby">
+img = Magick::Image.new(100, 50)
+img.define('distort:viewport', '44x44+15+0')
+img.undefine('distort:viewport')
+img.distort(Magick::ScaleRotateTranslateDistortion, [0]).columns #=&gt; 100
+</pre>
+
+      <h4>Notes</h4>
+
+      <p>Raises <code>FrozenError</code> if the image is frozen.</p>
+
+      <h4>See also</h4>
+
+      <p>
+        <a href="image1.html#define">define</a>,
+        <a href="image1.html#artifact">artifact</a>,
+        <a href="info.html#undefine">Image::Info#undefine</a>
+      </p>
+
+      <h4>Magick API</h4>
+
+      <p>DeleteImageArtifact</p>
     </div>
 
     <div class="sig">

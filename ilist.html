@@ -4,7 +4,7 @@
   <head>
     <meta name="generator" content="HTML Tidy for Linux/x86 (vers 6 November 2007), see www.w3.org" />
 
-    <title>RMagick 7.1.4: class ImageList</title>
+    <title>RMagick 7.1.6: class ImageList</title>
     <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
     <meta name="GENERATOR" content="Quanta Plus" />
     <meta name="Copyright" content="Copyright (C) 2005 by Timothy P. Hunter" />
@@ -19,7 +19,7 @@
   </head>
 
   <body>
-    <h6 id="header">RMagick 7.1.4 User's Guide and Reference</h6>
+    <h6 id="header">RMagick 7.1.6 User's Guide and Reference</h6>
 
     <div class="nav">&laquo;&nbsp;<a href="magick.html">Prev</a> | <a href="index.html">Contents</a> | <a href="imageattrs.html">Next</a>&nbsp;&raquo;</div>
 
@@ -88,8 +88,6 @@
           <li><a href="#flatten_images">flatten_images</a></li>
 
           <li><a href="#from_blob">from_blob</a></li>
-
-          <li><a href="#fx">fx</a></li>
 
           <li><a href="#inspect">inspect</a></li>
 
@@ -553,13 +551,13 @@ ilist.animate { |options| options.server_name = "other:0.0" }
     <div class="sig">
       <h3 id="clone">clone</h3>
 
-      <p><span class="arg">ilist</span>.clone -&gt; <em>other_imagelist</em></p>
+      <p><span class="arg">ilist</span>.clone(freeze: nil) -&gt; <em>other_imagelist</em></p>
     </div>
 
     <div class="desc">
       <h4>Description</h4>
 
-      <p>Same as <a href="#dup">dup</a>, but the frozen state of the original is propagated to the copy.</p>
+      <p>Same as <a href="#dup">dup</a>, but the frozen state of the original is propagated to the copy. As with <code>Object#clone</code>, <code>freeze: false</code> or <code>freeze: true</code> sets the frozen state of the copy instead.</p>
 
       <h4>Returns</h4>
 
@@ -915,84 +913,6 @@ ilist.display
     </div>
 
     <div class="sig">
-      <h3 id="fx">fx</h3>
-
-      <p><span class="arg">ilist</span> .fx(<span class="arg">expression</span> [, <span class="arg">channel</span>...]) -&gt; <em>image</em></p>
-    </div>
-
-    <div class="desc">
-      <h4>Description</h4>
-
-      <p>
-        Applies the specified mathematical expression to the input images. This method corresponds to ImageMagick's
-        <a href="https://imagemagick.org/script/fx.php">-fx</a> operator.
-      </p>
-
-      <h4>Arguments</h4>
-
-      <dl>
-        <dt>expression</dt>
-
-        <dd>A mathematical expression of the form accepted by the -fx operator.</dd>
-
-        <dt>channel...</dt>
-
-        <dd>
-          0 or more
-          <a href="constants.html#ChannelType">ChannelType</a> arguments. Specify the output channels. If no channels are specified the result is set over all
-          channels except the opacity channel.
-        </dd>
-      </dl>
-
-      <h4>Notes</h4>
-
-      <ul>
-        <li>
-          Fx expressions are interpreted. Therefore this method can be quite slow depending on the complexity of the expression. Generally you will get better
-          performance by accessing the image pixels as
-          <a href="struct.html#Pixel">Pixel</a> objects (see <a href="image2.html#get_pixels">get_pixels</a> and <a href="image3.html#view">view</a>) and using
-          Ruby code to perform the mathematics.
-        </li>
-
-        <li>
-          The <code>u</code> and <code>v</code> symbols refer to the 0th and 1st image in the list. The image reference index (<code>u[2]</code> for example)
-          works as expected. The current <a href="#scene">scene number</a> has no meaning in the context of the <code>fx</code> method.
-        </li>
-
-        <li>
-          To specify a non-default pixel interpolation method, set the
-          <a href="imageattrs.html#pixel_interpolation_method">pixel_interpolation_method</a>
-          attribute of the last image in the list.
-        </li>
-      </ul>
-
-      <h4>Returns</h4>
-
-      <p>The image created by the expression.</p>
-
-      <h4>Example</h4>
-
-      <pre class="language-ruby">
-# Produce a navy blue image from a black image
-imgl = Magick::ImageList.new
-imgl &lt;&lt; Magick::Image.new(64, 64) { |options| options.background_color = 'black'}
-
-res = imgl.fx('1/2', Magick::BlueChannel)
-</pre>
-
-      <h4>ImageMagick API</h4>
-
-      <p>FxImageChannel</p>
-
-      <h4>See also</h4>
-
-      <p>
-        <a href="image2.html#get_pixels">get_pixels</a>,
-        <a href="image3.html#view">view</a>
-      </p>
-    </div>
-
-    <div class="sig">
       <h3 id="inspect">inspect</h3>
 
       <p><span class="arg">ilist.</span>inspect -&gt; <em>string</em></p>
@@ -1173,7 +1093,10 @@ i = Magick::ImageList.new("images/Button_A.gif", "images/Button_B.gif")
 
         <dt>title=</dt>
 
-        <dd>Adds a title over the whole montage.</dd>
+        <dd>
+          Adds a title over the whole montage. A title whose first non-blank character is <code>@</code>, or that contains a <code>%[fx:@...]</code>,
+          <code>%[hex:@...]</code> or <code>%[pixel:@...]</code> escape, raises <code>ArgumentError</code>, because ImageMagick would read the file it names.
+        </dd>
       </dl>
 
       <h4>Tile labels</h4>
@@ -1746,6 +1669,10 @@ end
           ><img alt="remap_images example" src="ex/remap_images.jpg" title="Click to see the example script"
         /></a>
       </p>
+
+      <h4>Notes</h4>
+
+      <p>This method was named <code>affinity</code> in earlier releases of RMagick. That name remains an alias for <code>remap</code>.</p>
 
       <h4>See also</h4>
 
