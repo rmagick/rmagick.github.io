@@ -4,7 +4,7 @@
   <head>
     <meta name="generator" content="HTML Tidy for Linux/x86 (vers 6 November 2007), see www.w3.org" />
 
-    <title>RMagick 7.1.6: Miscellaneous classes</title>
+    <title>RMagick 7.2.0: Miscellaneous classes</title>
     <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
     <meta name="GENERATOR" content="Quanta Plus" />
     <meta name="Copyright" content="Copyright (C) 2006 by Timothy P. Hunter" />
@@ -27,7 +27,7 @@
   </head>
 
   <body>
-    <h6 id="header">RMagick 7.1.6 User's Guide and Reference</h6>
+    <h6 id="header">RMagick 7.2.0 User's Guide and Reference</h6>
 
     <div class="nav">&laquo;&nbsp;<a href="draw.html">Prev</a> | <a href="index.html">Contents</a> | <a href="info.html">Next</a>&nbsp;&raquo;</div>
 
@@ -577,7 +577,7 @@ g = Magick::Geometry.new(100,200,nil,nil,Magick::AspectGeometry)
         <p>
           A pixel describes the smallest individually addressable part of an image. In the RGB
           <a href="constants.html#ColorspaceType">colorspace</a>, a pixel's color is described by its intensity in the red, green, and blue channels. Its
-          opacity is described by its intensity in the opacity (also called alpha, or matte) channel. In the CMYK colorspace a pixel's color is described by its
+          opacity is described by its intensity in the alpha channel. Higher alpha intensities are more opaque. In the CMYK colorspace a pixel's color is described by its
           intensity in the cyan, magenta, yellow and black (K) channels. Intensity is a value between 0 and
           <a href="constants.html#Miscellaneous_constants">QuantumRange</a>.
         </p>
@@ -609,6 +609,11 @@ g = Magick::Geometry.new(100,200,nil,nil,Magick::AspectGeometry)
         <p>
           Constructs a pixel object from the specified red, green, blue, and opacity intensities. The intensity is a number between 0 and
           <a href="constants.html#Miscellaneous_constants">QuantumRange</a>.
+        </p>
+
+        <p>
+          The <span class="arg">opacity</span> is the opposite of the <code>alpha</code> attribute. An opacity of 0 is fully opaque, and the
+          <code>alpha</code> attribute is set to QuantumRange minus <span class="arg">opacity</span>.
         </p>
 
         <h5>Attributes</h5>
@@ -819,22 +824,28 @@ g = Magick::Geometry.new(100,200,nil,nil,Magick::AspectGeometry)
           <dt>depth</dt>
 
           <dd>
-            An image depth. The default is the quantum depth used when ImageMagick was compiled. The value 16 can be used only when
-            <a href="constants.html#Miscellaneous_constants">MAGICKCORE_QUANTUM_DEPTH</a> is 16 or 32, and 32 only when it is 32.
+            An image depth. The default is the quantum depth used when ImageMagick was compiled. The value is 8, 16, 32, or 64, and must be no
+            greater than <a href="constants.html#Miscellaneous_constants">MAGICKCORE_QUANTUM_DEPTH</a>.
           </dd>
 
           <dt>hex</dt>
 
           <dd>
             If true, represent the color in hex format. The format is #rrggbb when <span class="arg">depth</span> is 8, and #rrrrggggbbbb when it is 16.
-            If <span class="arg">alpha</span> is true, the alpha value is appended, as in #rrggbbaa. When <span class="arg">hex</span> is true,
-            <span class="arg">compliance</span> is ignored, except that XPMCompliance omits the alpha value.
+            Each channel has 8 hex digits when <span class="arg">depth</span> is 32. When it is 64, each channel has 16 hex digits, which repeat the
+            8 digits of the 32-bit value. If <span class="arg">alpha</span> is true, the alpha value is appended, as in #rrggbbaa. When
+            <span class="arg">hex</span> is true, <span class="arg">compliance</span> is ignored, except that XPMCompliance omits the alpha value and uses a
+            depth of at most 16.
           </dd>
         </dl>
 
         <h5>See also</h5>
 
-        <p><a href="image3.html#to_color">Image#to_color</a></p>
+        <p>
+          Compare this method to
+          <a href="image3.html#to_color">Image#to_color</a>, in which the <span class="arg">alpha</span> and <span class="arg">depth</span> values are taken
+          from an image.
+        </p>
       </div>
 
       <div class="sig">

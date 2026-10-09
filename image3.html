@@ -4,7 +4,7 @@
   <head>
     <meta name="generator" content="HTML Tidy for Linux/x86 (vers 7 December 2008), see www.w3.org" />
 
-    <title>RMagick 7.1.6: class Image (instance methods p-w)</title>
+    <title>RMagick 7.2.0: class Image (instance methods p-w)</title>
     <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
     <meta name="GENERATOR" content="Quanta Plus" />
     <meta name="Copyright" content="Copyright (C) 2006 by Timothy P. Hunter" />
@@ -52,7 +52,7 @@
   </head>
 
   <body>
-    <h6 id="header">RMagick 7.1.6 User's Guide and Reference</h6>
+    <h6 id="header">RMagick 7.2.0 User's Guide and Reference</h6>
 
     <div class="nav">&laquo;&nbsp;<a href="image2.html">Prev</a> | <a href="index.html">Contents</a> | <a href="draw.html">Next</a>&nbsp;&raquo;</div>
 
@@ -3559,12 +3559,18 @@ img.tint('white', 1.0, 0.8, 0.8)
       <h4>Description</h4>
 
       <p>
-        Returns the color name for a pixel. If there is no such named color, returns the color in hex format.
+        Returns the color name for a pixel. If there is no such named color, returns the color in hex format. Unlike
+        <code>Pixel#to_color</code>, the hex format uses the depth of the image. The alpha value of the pixel is ignored unless the image has an alpha
+        channel, both when looking up the color name and in the hex format.
       </p>
 
       <h4>Arguments</h4>
 
-      <p>A <a href="struct.html#Pixel">Pixel</a> object.</p>
+      <p>
+        A <a href="struct.html#Pixel">Pixel</a> object or a <a href="imusage.html#color_names">color name</a>. The values of a Pixel are read
+        in the colorspace of the image, as <code>pixel_color</code> returns them. A color name is converted to CMYK when the image is in the CMYK
+        colorspace.
+      </p>
 
       <h4>Returns</h4>
 
