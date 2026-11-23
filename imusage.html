@@ -4,7 +4,7 @@
   <head>
     <meta name="generator" content="HTML Tidy for Linux/x86 (vers 1 September 2005), see www.w3.org" />
 
-    <title>RMagick 7.2.0: ImageMagick Conventions</title>
+    <title>RMagick 7.3.1: ImageMagick Conventions</title>
     <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
     <meta name="GENERATOR" content="Quanta Plus" />
     <meta name="Copyright" content="Copyright (C) 2006 by Timothy P. Hunter" />
@@ -70,7 +70,7 @@
   </head>
 
   <body>
-    <h6 id="header">RMagick 7.2.0 User's Guide and Reference</h6>
+    <h6 id="header">RMagick 7.3.1 User's Guide and Reference</h6>
 
     <div class="nav">&laquo;&nbsp;<a href="usage.html">Prev</a> | <a href="index.html">Contents</a> | <a href="optequiv.html">Next</a>&nbsp;&raquo;</div>
 
@@ -264,12 +264,12 @@
       </tr>
     </table>
 
-    <p>The alpha channel is the opacity of the image, which can range from 0 (Magick::OpaqueOpacity) to QuantumRange (Magick::TransparentOpacity).</p>
+    <p>The alpha channel ranges from 0 (Magick::TransparentAlpha, fully transparent) to QuantumRange (Magick::OpaqueAlpha, fully opaque).</p>
 
     <p>
       A <code>Pixel</code> object contains the numeric representation of a color. The <a href="struct.html#Pixel">Pixel.from_color</a> method converts a color
-      name to a pixel. There are two methods to convert a pixel to a color name. The <a href="struct.html#Pixel">Pixel#to_color</a> method requires that you
-      specify whether the alpha (opacity) channel is used, the depth (8 or 16) and the color standard to use. The
+      name to a pixel. There are two methods to convert a pixel to a color name. The <a href="struct.html#Pixel">Pixel#to_color</a> method takes optional
+      arguments for the color standard, whether to use the alpha channel, the depth, and hex output. The
       <a href="image3.html#to_color">Image#to_color</a> method uses the image's <a href="imageattrs.html#depth">depth</a> attribute and
       <a href="image1.html#alpha">alpha</a> method.
     </p>

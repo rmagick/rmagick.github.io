@@ -4,7 +4,7 @@
   <head>
     <meta name="generator" content="HTML Tidy for Linux/x86 (vers 1 September 2005), see www.w3.org" />
 
-    <title>RMagick 7.2.0: Common Tasks</title>
+    <title>RMagick 7.3.1: Common Tasks</title>
     <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
     <meta name="GENERATOR" content="Quanta Plus" />
     <meta name="Copyright" content="Copyright (C) 2006 by Timothy P. Hunter" />
@@ -31,7 +31,7 @@
   </head>
 
   <body>
-    <h6 id="header">RMagick 7.2.0 User's Guide and Reference</h6>
+    <h6 id="header">RMagick 7.3.1 User's Guide and Reference</h6>
 
     <div class="nav">&laquo;&nbsp;<a href="optequiv.html">Prev</a> | <a href="index.html">Contents</a> | <a href="magick.html">Next</a>&nbsp;&raquo;</div>
 
@@ -113,7 +113,7 @@ end
       >. All four are equally easy to use. Specify the number of columns and rows you want the thumbnail to have, like this:
     </p>
     <pre class="example language-ruby">
-img = Magick::Image.new "bigimage.gif"
+img = Magick::Image.read("bigimage.gif").first
 thumb = img.scale(125, 125)
 thumb.write "thumb.gif"
 </pre>
@@ -123,7 +123,7 @@ thumb.write "thumb.gif"
       image to 25% of its original size, do this:
     </p>
     <pre class="example language-ruby">
-img = Magick::Image.new "bigimage.gif"
+img = Magick::Image.read("bigimage.gif").first
 thumb = img.scale(0.25)
 thumb.write "thumb.gif"
 </pre>
@@ -199,7 +199,7 @@ thumb = img.resize_to_fit(75, 75)
 
     <p>
       Use <a href="image2.html#import_pixels">Image#import_pixels</a> to load pixel data from a string buffer into an image. The pixel data must be in scanline
-      order, right-to-left and top-to-bottom. The data can be packed as 8-bit bytes, 16-bit half words, 32-bit full words, or as C floats or doubles. The
+      order, left-to-right and top-to-bottom. The data can be packed as 8-bit bytes, 16-bit half words, 32-bit full words, or as C floats or doubles. The
       reciprocal method is <a href="image2.html#export_pixels_to_str">Image#export_pixels_to_str</a>.
     </p>
 
